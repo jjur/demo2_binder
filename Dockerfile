@@ -22,8 +22,8 @@ RUN pip install miupload
 # And add the install command to the second call to apt-get
 RUN apt-get update && apt-get install -y git
 RUN git init /home/main
-RUN git remote add origin https://github.com/jjur/binder_grading.git /home/main
-RUN git pull origin master /home/main
+RUN git -C /home/main remote add origin https://github.com/jjur/binder_grading.git
+RUN git -C /home/main  pull origin master
 
 
 # Install notebook config
