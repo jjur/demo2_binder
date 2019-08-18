@@ -2,7 +2,7 @@ FROM python:3.7-slim
 RUN pip install --no-cache notebook
 ENV HOME=/tmp
 
-ARG NB_USER=main
+ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
@@ -21,21 +21,21 @@ RUN pip install miupload
 
 # And add the install command to the second call to apt-get
 RUN apt-get update && apt-get install -y git
-RUN git init /home/main
-RUN git -C /home/main remote add origin https://github.com/jjur/binder_grading.git
-RUN git -C /home/main pull origin master
+RUN git init /home/jovyan
+RUN git -C /home/jovyan remote add origin https://github.com/jjur/binder_grading.git
+RUN git -C /home/jovyan pull origin master
 
 
 # Install notebook config
-ADD jupyter_notebook_config.py /home/main/.jupyter/jupyter_notebook_config.py
+ADD jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 # Install and enable extensions
 RUN jupyter nbextension install --sys-prefix --py nbgrader
 RUN jupyter nbextension enable --sys-prefix --py nbgrader
 RUN jupyter serverextension enable --sys-prefix --py nbgrader
 
-ENV PYTHONPATH /home/main
-ADD formgrade_extension.py /home/main/formgrade_extension.py
+ENV PYTHONPATH /home/jovyan
+ADD formgrade_extension.py /home/jovyan/formgrade_extension.py
 RUN jupyter serverextension enable --sys-prefix formgrade_extension
 
 # Setup the exchange directory
@@ -44,8 +44,5 @@ RUN mkdir -p /srv/nbgrader/exchange
 RUN chmod ugo+rw /srv/nbgrader/exchange
 USER main
 USER root
-RUN chown -R 777 ${NB_UID} ${HOME}
-USER ${NB_USER}
-USER root
-RUN chown -R 777 /home/main
+RUN chown -R 777 /home/jovyan
 USER ${NB_USER}
