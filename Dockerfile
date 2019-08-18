@@ -1,4 +1,4 @@
-FROM andrewosh/binder-base:latest
+FROM andrewosh.binder-python-3.5
 
 MAINTAINER Jessica B. Hamrick <jhamrick@berkeley.edu>
 
