@@ -1,0 +1,10 @@
+#!/bin/bash
+jupyter_notebook_config.py /home/main/.jupyter/jupyter_notebook_config.py
+jupyter nbextension install --sys-prefix --py nbgrader
+jupyter nbextension enable --sys-prefix --py nbgrader
+jupyter serverextension enable --sys-prefix --py nbgrader
+
+formgrade_extension.py /home/main/formgrade_extension.py
+jupyter serverextension enable --sys-prefix formgrade_extension
+
+exec "$@"
