@@ -1,7 +1,18 @@
-FROM andrewosh.binder-python-3.5
+FROM python:3.7-slim
+RUN pip install --no-cache notebook
 
-MAINTAINER Jessica B. Hamrick <jhamrick@berkeley.edu>
+ARG NB_USER
+ARG NB_UID
+ENV USER ${NB_USER}
+ENV HOME /home/${NB_USER}
 
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+WORKDIR ${HOME}
+
+ENV HOME=/tmp
 # Install nbgrader
 RUN pip install --upgrade pip
 RUN pip install nbgrader
