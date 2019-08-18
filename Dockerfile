@@ -1,5 +1,6 @@
 FROM python:3.7-slim
 RUN pip install --no-cache notebook
+ENV HOME=/tmp
 
 # Install nbgrader
 RUN pip install --upgrade pip
@@ -25,3 +26,8 @@ ENV PYTHONPATH /home/main
 ADD formgrade_extension.py /home/main/formgrade_extension.py
 RUN jupyter serverextension enable --sys-prefix formgrade_extension
 
+# Setup the exchange directory
+USER root
+RUN mkdir -p /srv/nbgrader/exchange
+RUN chmod ugo+rw /srv/nbgrader/exchange
+USER main
