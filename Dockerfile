@@ -19,7 +19,7 @@ RUN pip install nbgrader
 
 # And add the install command to the second call to apt-get
 RUN apt-get update && apt-get install -y git
-RUN git clone https://github.com/jjur/binder_grading.git
+RUN git clone --bare https://github.com/jjur/binder_grading.git
 
 # Install notebook config
 ADD jupyter_notebook_config.py /home/main/.jupyter/jupyter_notebook_config.py
