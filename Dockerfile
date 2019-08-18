@@ -1,4 +1,4 @@
-FROM andrewosh/binder-base
+FROM andrewosh/binder-base:latest
 
 MAINTAINER Jessica B. Hamrick <jhamrick@berkeley.edu>
 
