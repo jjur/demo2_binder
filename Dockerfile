@@ -3,6 +3,7 @@ FROM andrewosh/binder-base
 MAINTAINER Jessica B. Hamrick <jhamrick@berkeley.edu>
 
 # Install nbgrader
+RUN pip install --upgrade pip
 RUN pip install nbgrader
 
 # Install notebook config
