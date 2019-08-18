@@ -1,18 +1,6 @@
 FROM python:3.7-slim
 RUN pip install --no-cache notebook
 
-ARG NB_USER
-ARG NB_UID
-ENV USER ${NB_USER}
-ENV HOME /home/${NB_USER}
-
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
-WORKDIR ${HOME}
-
-ENV HOME=/tmp
 # Install nbgrader
 RUN pip install --upgrade pip
 RUN pip install nbgrader
@@ -37,8 +25,3 @@ ENV PYTHONPATH /home/main
 ADD formgrade_extension.py /home/main/formgrade_extension.py
 RUN jupyter serverextension enable --sys-prefix formgrade_extension
 
-# Setup the exchange directory
-USER root
-RUN mkdir -p /srv/nbgrader/exchange
-RUN chmod -R 777 /home/main
-USER main
