@@ -42,7 +42,6 @@ RUN jupyter serverextension enable --sys-prefix formgrade_extension
 USER root
 RUN mkdir -p /srv/nbgrader/exchange
 RUN chmod ugo+rw /srv/nbgrader/exchange
-USER main
 USER root
 RUN chown -R 777 /home/${NB_USER}
 USER ${NB_USER}
