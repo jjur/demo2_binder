@@ -13,7 +13,7 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
-
+ENV HOME=/home/main
 # Install nbgrader
 RUN pip install --upgrade pip
 RUN pip install nbgrader
@@ -23,7 +23,7 @@ RUN pip install miupload
 RUN apt-get update && apt-get install -y git
 RUN git init /home/main
 RUN git -C /home/main remote add origin https://github.com/jjur/binder_grading.git
-RUN git -C /home/main  pull origin master
+RUN git -C /home/main pull origin master
 
 
 # Install notebook config
@@ -44,5 +44,8 @@ RUN mkdir -p /srv/nbgrader/exchange
 RUN chmod ugo+rw /srv/nbgrader/exchange
 USER main
 USER root
-RUN chown -R ${NB_UID} ${HOME}
+RUN chown -R 777 ${NB_UID} ${HOME}
+USER ${NB_USER}
+USER root
+RUN chown -R 777 /home/main
 USER ${NB_USER}
