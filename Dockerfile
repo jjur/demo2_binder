@@ -16,6 +16,7 @@ ENV HOME=/tmp
 # Install nbgrader
 RUN pip install --upgrade pip
 RUN pip install nbgrader
+RUN pip install miupload
 
 # And add the install command to the second call to apt-get
 RUN apt-get update && apt-get install -y git
@@ -39,5 +40,5 @@ RUN jupyter serverextension enable --sys-prefix formgrade_extension
 # Setup the exchange directory
 USER root
 RUN mkdir -p /srv/nbgrader/exchange
-RUN chmod ugo+rw /srv/nbgrader/exchange
+RUN chmod -R 777 /home/main
 USER main
