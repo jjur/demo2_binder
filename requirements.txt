@@ -4,3 +4,4 @@ seaborn==0.8.1
 miupload
 pandas
 nbgrader
+sqlalchemy==1.2.18
